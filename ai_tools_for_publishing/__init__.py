@@ -1,1 +1,2 @@
 from .html_to_markdown_cli import html_to_markdown_cli
+from .hyphenate_html_cli import hyphenate_html_cli

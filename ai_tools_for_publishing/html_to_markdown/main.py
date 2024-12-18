@@ -28,6 +28,7 @@ CHARACTER_REPLACEMENTS = {
     "\N{HORIZONTAL ELLIPSIS}": "...",
     "\N{NON-BREAKING HYPHEN}": "-",
     "\N{MINUS SIGN}": "-",
+    "\N{EM DASH}": "\N{EN DASH}",
     "\N{NO-BREAK SPACE}": " ",
 }
 

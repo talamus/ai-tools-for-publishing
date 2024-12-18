@@ -12,6 +12,7 @@ from pythonjsonlogger import jsonlogger
 VERBOSITY = {
     "NONE": logging.CRITICAL,
     "ERROR": logging.ERROR,
+    "WARNING": logging.WARNING,
     "INFO": logging.INFO,
     "DEBUG": logging.DEBUG,
 }
@@ -63,7 +64,7 @@ class ScreenFormatter(jsonlogger.JsonFormatter):
     """A screen friendly version of the log formatter."""
 
     def __init__(self, *args, **kwargs):
-        if sys.stdout.isatty():
+        if sys.stderr.isatty():
             self.LEVEL_HEADERS = TTY_LEVEL_HEADERS
             self.LEVEL_COLORS = TTY_LEVEL_COLORS
             self.ARGUMENT_COLOR = TTY_ARGUMENT_COLOR
@@ -88,7 +89,7 @@ class ScreenFormatter(jsonlogger.JsonFormatter):
             if not isinstance(value, str):
                 value = pprint.pformat(value, sort_dicts=False)
             value = textwrap.indent(value, (len(name) + 2) * " ").strip()
-            return textwrap.indent(f"{name}: {value}", "  ") + "\n"
+            return textwrap.indent(f"{name}: {value}", "  ")  # + "\n"
 
         extra_fields = []
         for key, value in log_record.items():
@@ -97,7 +98,7 @@ class ScreenFormatter(jsonlogger.JsonFormatter):
         stringified_extra_fields = ""
         if extra_fields:
             stringified_extra_fields = (
-                "\n\n"
+                "\n"
                 + self.EXTRA_FIELDS_COLOR
                 + "\n".join(extra_fields)
                 + self.RESET_COLORS
@@ -145,7 +146,7 @@ def set_up_loggers(cfg: dict[str, Any] = None) -> None:
 
     # Screen output (a.k.a Verbosity/Quiet)
     if not _screen_logging_handler:
-        _screen_logging_handler = logging.StreamHandler(sys.stdout)
+        _screen_logging_handler = logging.StreamHandler(sys.stderr)
         _screen_logging_handler.setFormatter(
             ScreenFormatter("%(levelname)s %(message)s")
         )

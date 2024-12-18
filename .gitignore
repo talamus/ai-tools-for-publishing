@@ -1,3 +1,10 @@
+# Ignore temporary files
+out.*
+temp.*
+tmp.*
+*.tmp
+*.temp
+
 # Ignore original texts and translations
 originals/*
 !/originals/README.md

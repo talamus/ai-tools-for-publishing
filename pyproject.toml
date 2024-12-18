@@ -7,14 +7,17 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 html_to_markdown = "ai_tools_for_publishing:html_to_markdown_cli"
+hyphenate_html = "ai_tools_for_publishing:hyphenate_html_cli"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 pyyaml = "^6.0.2"
 platformdirs = "^4.3.6"
 colorama = "^0.4.6"
 python-json-logger = "^3.2.0"
 bs4 = "^0.0.2"
+libvoikko = "^4.3"
+lxml = "^5.3.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

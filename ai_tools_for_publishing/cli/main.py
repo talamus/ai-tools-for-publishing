@@ -27,9 +27,9 @@ def main(
         ]
 
         # If an alternative configuration file is provided, use it instead of the standard one
-        if args["alterative_config_file"]:
+        if "alterative_config_file" in args:
             args["config_file"] = args["alterative_config_file"]
-        del args["alterative_config_file"]
+            del args["alterative_config_file"]
 
         # Set up application settings and loggers
         cfg = set_up_config(cfg, args)
