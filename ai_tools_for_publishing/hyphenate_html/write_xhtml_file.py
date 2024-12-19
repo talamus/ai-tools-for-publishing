@@ -11,6 +11,12 @@ def write_xhtml_file(output_file: str, soup: BeautifulSoup, cfg: dict) -> None:
     parser = html.HTMLParser()
     tree = html.fromstring(str(body), parser=parser)
 
+    content = (
+        etree.tostring(tree, pretty_print=True, method="xml", encoding="UTF-8")
+        .decode("UTF-8")
+        .strip()
+    )
+
     author_tag = soup.find("meta", attrs={"name": "author"})
     copyright_tag = soup.find("meta", attrs={"name": "copyright"})
     fields = {
@@ -18,11 +24,7 @@ def write_xhtml_file(output_file: str, soup: BeautifulSoup, cfg: dict) -> None:
         "title": soup.find("title").get_text() if soup.find("title") else "",
         "author": author_tag.get("content", "") if author_tag else "",
         "copyright": copyright_tag.get("content", "") if copyright_tag else "",
-        "content": (
-            etree.tostring(tree, pretty_print=True, method="xml", encoding="UTF-8")
-            .decode("UTF-8")
-            .strip()
-        ),
+        "content": content,
     }
 
     with open(output_file, "w") as file:

@@ -28,7 +28,7 @@ def hyphenate_word(word: str, known_hyphenations: dict) -> str:
     prefix, word, postfix = split_punctuation_from_word(word)
     if word in known_hyphenations:
         log.debug("Known word %s -> %s", word, known_hyphenations[word])
-        hyphenated_word = known_hyphenations[word]
+        hyphenated_word = known_hyphenations[word].replace("_", "\N{SOFT HYPHEN}")
     else:
         hyphenated_word = VOIKKO.hyphenate(word, separator="\N{SOFT HYPHEN}")
         if not isinstance(hyphenated_word, str):

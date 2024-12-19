@@ -7,8 +7,9 @@ DEFAULT_CONFIG = {
     "output_file_extension": "_hyphenated.html",
     "output_xhtml": False,
     "hyphenations_file": None,
+    # NOTE! Hyphenation does not work in Kindle without `xml:lang="en"`
     "xhtml_template": """<?xml version="1.0" encoding="UTF-8" ?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{language}" lang="{language}">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
 <meta name="author" content="{author}"/>
