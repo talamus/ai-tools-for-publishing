@@ -1,16 +1,19 @@
 import os.path
 import logging
+import yaml
 from bs4 import BeautifulSoup
 from .default_config import DEFAULT_CONFIG
 from .list_unknown_words import collect_unknown_words, print_unknown_words
 from .hyphenate_body import hyphenate_body
-import yaml
+from .write_xhtml_file import write_xhtml_file
 
 
 def hyphenate_html(
     input_files: list[str], output_path: str | None, cfg: dict = None
 ) -> None:
-    """Hyphenate a HTML document."""
+    """Hyphenate a HTML document.
+    This function can be directly called.
+    """
 
     known_hyphenations = dict()
 
@@ -77,9 +80,17 @@ def hyphenate_html(
                 output_file,
             )
         else:
-            with open(output_file, "w") as file:
-                file.write(str(soup.prettify(formatter="xml")))
-            log.info("Written hyphenated HTML to %s", output_file)
+            if cfg["output_xhtml"]:
+                write_xhtml_file(output_file, soup, cfg)
+            else:
+                with open(output_file, "w") as file:
+                    file.write(str(soup))
+
+            log.info(
+                "Hyphenated %s written to %s",
+                "XHTML" if cfg["output_xhtml"] else "HTML",
+                output_file,
+            )
 
     if cfg["list_unknown"]:
         print_unknown_words()
