@@ -127,9 +127,6 @@ def hyphenate_html_cli():
 
     args = vars(argparser.parse_args())
 
-    if args["output_path"]:
-        args["output_path"] = args["output_path"][0]
-
     # Remove arguments that are not set,
     # so that they don't override the .config file:
     args = {name: value for name, value in args.items() if value}
@@ -137,7 +134,7 @@ def hyphenate_html_cli():
     sys.exit(
         main(
             lambda cfg: hyphenate_html(
-                args["input_files"], args["output_path"], cfg=cfg
+                args["input_files"], args.get("output_path", [None])[0], cfg=cfg
             ),
             args,
             cfg,

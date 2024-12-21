@@ -17,6 +17,7 @@ def main(
 
     try:
         # Make sure that verbosity is within range and convert it into a string
+        args["verbosity"] = args.get("verbosity", 0)
         verbosity_names = tuple(VERBOSITY.keys())
         args["verbosity"] = verbosity_names[
             (
@@ -44,7 +45,7 @@ def main(
         log.exception(error.__class__.__name__, extra={"problem": str(error)})
 
         # Raise the exception to the terminal when debugging
-        if cfg["verbosity"] == "DEBUG" or args["verbosity"] == "DEBUG":
+        if cfg["verbosity"] == "DEBUG" or args.get("verbosity", "ERROR") == "DEBUG":
             raise
         return 1
 

@@ -12,6 +12,7 @@ try:
     VOIKKO = Voikko("fi")
     VOIKKO.setNoUglyHyphenation(True)
     VOIKKO.setHyphenateUnknownWords(True)
+    VOIKKO.setMinHyphenatedWordLength(1)
     STRICT_VOIKKO = Voikko("fi")
     STRICT_VOIKKO.setNoUglyHyphenation(False)
     STRICT_VOIKKO.setHyphenateUnknownWords(False)

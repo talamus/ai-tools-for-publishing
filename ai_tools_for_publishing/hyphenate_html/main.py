@@ -54,6 +54,7 @@ def hyphenate_html(
 
         if cfg["list_unknown"]:
             collect_unknown_words(input_file, body, cfg)
+            continue
         else:
             hyphenate_body(input_file, body, known_hyphenations, cfg)
 
