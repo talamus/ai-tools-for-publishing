@@ -6,7 +6,7 @@ def write_xhtml_file(output_file: str, soup: BeautifulSoup, cfg: dict) -> None:
 
     body = soup.find("body")
     if not body:
-        raise SyntaxError("No <body> tag")
+        raise SyntaxError("No <body> tag found")
 
     parser = html.HTMLParser()
     tree = html.fromstring(str(body), parser=parser)

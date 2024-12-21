@@ -1,5 +1,4 @@
 import re
-import string
 import logging
 
 RAW = 0

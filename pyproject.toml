@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 html_to_markdown = "ai_tools_for_publishing:html_to_markdown_cli"
-hyphenate_html = "ai_tools_for_publishing:hyphenate_html_cli"
+hyphenate_html = "ai_tools_for_publishing.hyphenate_html:cli"
 
 [tool.poetry.dependencies]
 python = "^3.10"

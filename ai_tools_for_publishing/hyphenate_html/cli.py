@@ -8,6 +8,8 @@ import platformdirs
 from ai_tools_for_publishing.cli import main, VERBOSITY
 from ai_tools_for_publishing.hyphenate_html import DEFAULT_CONFIG, hyphenate_html
 
+### PROGRAM INFO ##############################################################
+
 __package__ = "ai_tools_for_publishing"
 APP_NAME = "hyphenate_html"
 APP_DESCRIPTION = f"""
@@ -30,8 +32,9 @@ Default configuration:
 {textwrap.indent(yaml.dump(cfg, sort_keys=False), "  ")}
 """
 
+### COMMAND LINE INTERFACE ####################################################
 
-def hyphenate_html_cli():
+def cli():
     argparser = argparse.ArgumentParser(
         prog=f"poetry run {APP_NAME}",
         description=APP_DESCRIPTION,
@@ -144,4 +147,4 @@ def hyphenate_html_cli():
 
 
 if __name__ == "__main__":
-    hyphenate_html_cli()
+    cli()

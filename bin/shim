@@ -1,0 +1,5 @@
+function ERROR { echo -e "\e[91;1m$@\e[0m"; exit 1; }
+shift
+cd "$(dirname "$0")/.."
+command -v poetry > /dev/null || ERROR "Please install poetry:\nhttps://python-poetry.org/docs/#installation"
+poetry run $(basename "$0") "$@"

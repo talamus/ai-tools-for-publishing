@@ -2,18 +2,15 @@ import os.path
 import logging
 import yaml
 from bs4 import BeautifulSoup
+from ai_tools_for_publishing.html_to_xhtml import write_xhtml_file
 from .default_config import DEFAULT_CONFIG
 from .list_unknown_words import collect_unknown_words, print_unknown_words
 from .hyphenate_body import hyphenate_body
-from .write_xhtml_file import write_xhtml_file
 
-
-def hyphenate_html(
+def main(
     input_files: list[str], output_path: str | None, cfg: dict = None
 ) -> None:
-    """Hyphenate a HTML document.
-    This function can be directly called.
-    """
+    """Read multiple HTML documents and hyphenate them."""
 
     known_hyphenations = dict()
 
