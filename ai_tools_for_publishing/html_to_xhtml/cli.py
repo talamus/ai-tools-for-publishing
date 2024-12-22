@@ -4,9 +4,6 @@ import textwrap
 import argparse
 import platformdirs
 from ai_tools_for_publishing.cli import set_up_and_run, dict_to_yaml_str, VERBOSITY
-from ai_tools_for_publishing.html_to_xhtml import (
-    DEFAULT_CONFIG as HTML_TO_XHTML_DEFAULT_CONFIG,
-)
 from . import *
 
 
@@ -14,9 +11,9 @@ from . import *
 
 
 __package__ = "ai_tools_for_publishing"
-APP_NAME = "hyphenate_html"
+APP_NAME = "html_to_xhtml"
 APP_DESCRIPTION = f"""
-Hyphenate a HTML document with BeautifulSoup and Voikko.
+Convert HTML documents to XHTML.
 """
 CLI_CONFIG = {
     "config_file": os.path.join(
@@ -29,7 +26,7 @@ CLI_CONFIG = {
     "log_max_bytes": 1000 * 1024,
     "log_max_files": 10,
 }
-default_cfg = HTML_TO_XHTML_DEFAULT_CONFIG | DEFAULT_CONFIG | CLI_CONFIG
+default_cfg = DEFAULT_CONFIG | CLI_CONFIG
 APP_USAGE = f"""
 Default configuration:
 {textwrap.indent(dict_to_yaml_str(default_cfg), "  ")}
@@ -67,33 +64,6 @@ def cli():
         help="Do not output anything",
     )
     argparser.add_argument(
-        "-a",
-        "--allow-unknown",
-        dest="allow_unknown",
-        action="store_true",
-        help="hyphenate even unknown words (Use with care!)",
-    )
-    argparser.add_argument(
-        "-l",
-        "--list-unknown",
-        dest="list_unknown",
-        action="store_true",
-        help="list unknown words and their guessed hyphenations (Dry run implied)",
-    )
-    argparser.add_argument(
-        "-k",
-        "--known-hyphenations",
-        dest="hyphenations_file",
-        metavar="HYPHENATIONS.yaml",
-        help="read known hyphenations from this file (YAML format)",
-    )
-    argparser.add_argument(
-        "--known",
-        "--hyphenations",
-        dest="hyphenations_file",
-        help=argparse.SUPPRESS,
-    )
-    argparser.add_argument(
         "-O",
         "--output-path",
         dest="output_path",
@@ -112,12 +82,6 @@ def cli():
         dest="output_ext",
         metavar=".EXT",
         help=f"file extension for hyphenated files (Default: {default_cfg['output_ext']})",
-    )
-    argparser.add_argument(
-        "--output-xhtml",
-        dest="output_xhtml",
-        action="store_true",
-        help="write output files in XHTML format",
     )
     argparser.add_argument(
         "-o",

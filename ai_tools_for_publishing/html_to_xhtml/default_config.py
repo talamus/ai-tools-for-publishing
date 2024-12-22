@@ -1,7 +1,7 @@
 DEFAULT_CONFIG = {
-    "dryrun": False,
+    "dry_run": False,
     "overwrite": False,
-    "output_file_extension": ".xhtml",
+    "output_ext": ".xhtml",
     "xhtml_template": """<?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{language}">
 <head>

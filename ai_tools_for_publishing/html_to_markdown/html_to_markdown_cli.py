@@ -5,7 +5,7 @@ import argparse
 import yaml
 import platformdirs
 
-from ai_tools_for_publishing.cli import main, VERBOSITY
+from ai_tools_for_publishing.cli import set_up_and_run, VERBOSITY
 from ai_tools_for_publishing.html_to_markdown import DEFAULT_CONFIG, html_to_markdown
 
 __package__ = "ai_tools_for_publishing"
@@ -110,10 +110,10 @@ def html_to_markdown_cli():
         del args["dryrun"]
 
     sys.exit(
-        main(
+        set_up_and_run(
             lambda cfg: html_to_markdown(args["in_file"], args["out_file"], cfg=cfg),
-            args,
             cfg,
+            args,
             f"Starting {APP_NAME}...",
         )
     )
