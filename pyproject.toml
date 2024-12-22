@@ -2,12 +2,13 @@
 name = "ai_tools_for_publishing"
 version = "0.1.0"
 description = ""
-authors = ["Tero Niemi <talamus@gmail.com>"]
+authors = ["Tero Niemi <tero.niemi@nimbus.fi>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
 html_to_markdown = "ai_tools_for_publishing:html_to_markdown_cli"
-hyphenate_html = "ai_tools_for_publishing:hyphenate_html_cli"
+html_to_xhtml = "ai_tools_for_publishing.html_to_xhtml:cli"
+hyphenate_html = "ai_tools_for_publishing.hyphenate_html:cli"
 
 [tool.poetry.dependencies]
 python = "^3.10"

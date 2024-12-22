@@ -92,6 +92,6 @@ def html_to_markdown(in_file: str, out_file: str | None, cfg: dict = None) -> No
     md = simplify_punctuation(md)
     log.debug("Simplified", extra={"md": md})
 
-    if not cfg["dryrun"]:
+    if not cfg["dry_run"]:
         log.info("Writing Markdown file", extra={"file": out_file})
         open(out_file, "w").write(md)

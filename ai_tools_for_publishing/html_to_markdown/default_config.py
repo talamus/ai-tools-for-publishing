@@ -1,4 +1,4 @@
 DEFAULT_CONFIG = {
-    "dryrun": False,
+    "dry_run": False,
     "overwrite": False,
 }

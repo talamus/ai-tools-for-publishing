@@ -5,19 +5,26 @@ import argparse
 import yaml
 import platformdirs
 
-from ai_tools_for_publishing.cli import main, VERBOSITY
-from ai_tools_for_publishing.hyphenate_html import DEFAULT_CONFIG, hyphenate_html
+from ai_tools_for_publishing.cli import set_up_and_run, VERBOSITY
+from ai_tools_for_publishing.html_to_markdown import DEFAULT_CONFIG, html_to_markdown
 
 __package__ = "ai_tools_for_publishing"
-APP_NAME = "hyphenate_html"
+APP_NAME = "html_to_markdown"
 APP_DESCRIPTION = f"""
-Hyphenate a HTML document with BeautifulSoup and Voikko.
+Convert a HTML document to a very plain Markdown file.
+Only a very limited set of HTML tags are allowed:
+  <h1> <h2> <h3> <h4> <h5>
+  <p> <blockquote>
+  <hr>
+And within these tags:
+  <em> <i> <strong> <b>
+  <br>
 """
 CLI_CONFIG = {
     "config_file": os.path.join(
         platformdirs.user_config_dir(__package__), f"{APP_NAME}.config"
     ),
-    "verbosity": "WARNING",
+    "verbosity": "ERROR",
     "log_file": os.path.join(platformdirs.user_log_dir(__package__), f"{APP_NAME}.log"),
     "log_file_format": "%(asctime)s %(levelname)s %(name)s %(message)s",
     "log_level": "INFO",
@@ -31,7 +38,7 @@ Default configuration:
 """
 
 
-def hyphenate_html_cli():
+def html_to_markdown_cli():
     argparser = argparse.ArgumentParser(
         prog=f"poetry run {APP_NAME}",
         description=APP_DESCRIPTION,
@@ -39,25 +46,23 @@ def hyphenate_html_cli():
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     argparser.add_argument(
-        "input_files",
-        metavar="input.html",
-        nargs="+",
-        help="HTML documents to be processed",
+        "in_file",
+        metavar="document.html",
+        nargs=1,
+        help="HTML file to be processed",
     )
     argparser.add_argument(
-        "-O",
-        "--output-dir",
-        dest="output_path",
-        metavar="DIR",
-        nargs=1,
-        help="output directory for hyphenated HTML documents",
+        "out_file",
+        metavar="document.md",
+        nargs="?",
+        help="Markdown file to be written",
     )
     argparser.add_argument(
         "-v",
         "--verbosity",
         action="count",
         default=0,
-        help="set output verbosity (-v = WARNING, -vv = INFO, -vvv = DEBUG)",
+        help="set output verbosity (-v = INFO, -vv = DEBUG)",
     )
     argparser.add_argument(
         "-q",
@@ -71,45 +76,12 @@ def hyphenate_html_cli():
         "-o",
         "--overwrite",
         action="store_true",
-        help="overwrite already existing HTML file",
-    )
-    argparser.add_argument(
-        "-a",
-        "--allow-unknown",
-        dest="allow_unknown",
-        action="store_true",
-        help="hyphenate even unknown words (Use with care!)",
-    )
-    argparser.add_argument(
-        "-l",
-        "--list-unknown",
-        dest="list_unknown",
-        action="store_true",
-        help="list unknown words and their guessed hyphenations (Dryrun implied)",
-    )
-    argparser.add_argument(
-        "-k",
-        "--known-hyphenations",
-        dest="hyphenations_file",
-        metavar="HYPHENATIONS.yaml",
-        help="read known hyphenations from this file (YAML format)",
-    )
-    argparser.add_argument(
-        "--output-ext",
-        dest="output_file_extension",
-        metavar=".EXT",
-        help="file extension for hyphenated files (Default: _hyphenated.html)",
-    )
-    argparser.add_argument(
-        "--output-xhtml",
-        dest="output_xhtml",
-        action="store_true",
-        help="write output files in XHTML format",
+        help="overwrite already existing Markdown file",
     )
     argparser.add_argument(
         "--config",
         dest="alterative_config_file",
-        metavar="CONFIG.yaml",
+        metavar="CONFIG",
         help="read configuration from this file (YAML format)",
     )
     argparser.add_argument(
@@ -126,22 +98,26 @@ def hyphenate_html_cli():
     )
 
     args = vars(argparser.parse_args())
+    args["in_file"] = args["in_file"][0]
 
     # Remove arguments that are not set,
     # so that they don't override the .config file:
-    args = {name: value for name, value in args.items() if value}
+    if not args["overwrite"]:
+        del args["overwrite"]
+    if not args["log_level"]:
+        del args["log_level"]
+    if not args["dryrun"]:
+        del args["dryrun"]
 
     sys.exit(
-        main(
-            lambda cfg: hyphenate_html(
-                args["input_files"], args.get("output_path", [None])[0], cfg=cfg
-            ),
-            args,
+        set_up_and_run(
+            lambda cfg: html_to_markdown(args["in_file"], args["out_file"], cfg=cfg),
             cfg,
+            args,
             f"Starting {APP_NAME}...",
         )
     )
 
 
 if __name__ == "__main__":
-    hyphenate_html_cli()
+    html_to_markdown_cli()

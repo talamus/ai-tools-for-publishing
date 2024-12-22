@@ -1,6 +1,6 @@
 import re
-import logging
 import yaml
+from typing import Dict, Any
 from bs4 import Tag
 from libvoikko import Voikko
 from ai_tools_for_publishing.punctuation import (
@@ -28,18 +28,19 @@ Finnish language dictionary have been installed:
     )
 
 
-unknown_words = dict()
+# Dictionary of unknown words and their (guessed) hyphenated forms
+unknown_words: Dict[str, str] = dict()
 
 
-def collect_unknown_words(file: str, body: Tag, cfg: dict) -> None:
+def collect_unknown_words(body: Tag, cfg: Dict[str, Any]) -> None:
+    """Detect words that Voikko does not recognize
+    and add them to the dictionary of unknown words.
+    """
     global unknown_words
     global VOIKKO
     global STRICT_VOIKKO
 
     VOIKKO.setMinHyphenatedWordLength(cfg["min_word_length"])
-
-    log = logging.getLogger(__name__)
-    log.info("Listing %s", file)
 
     for element in body.find_all(string=True):
         if element == "\n":
@@ -67,6 +68,10 @@ def collect_unknown_words(file: str, body: Tag, cfg: dict) -> None:
                 unknown_words[word] = hyphenated_word
 
 
-def print_unknown_words():
+def print_unknown_words() -> None:
+    """Print the dictionary of unknown words
+    and their hyphenated forms in YAML format."""
     global unknown_words
-    print(yaml.dump(unknown_words, allow_unicode=True, default_flow_style=False))
+    print(
+        yaml.dump(unknown_words, allow_unicode=True, default_flow_style=False), end=""
+    )
