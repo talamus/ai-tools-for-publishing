@@ -1,7 +1,8 @@
 DEFAULT_CONFIG = {
     "dry_run": False,
     "overwrite": False,
-    "output_ext": ".xhtml",
+    "output_name": "{name}_reformatted.{ext}",
+    "output_format": "markdown",
     "xhtml_template": """<?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{language}">
 <head>

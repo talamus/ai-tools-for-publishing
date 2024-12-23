@@ -1,6 +1,6 @@
 import os.path
 from typing import Any
-from .yaml import read_yaml_file_to_dict
+from ai_tools_for_publishing.utils import read_yaml_file_to_dict
 
 
 def set_up_config(

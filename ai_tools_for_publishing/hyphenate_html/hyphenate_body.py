@@ -3,27 +3,18 @@ import logging
 from typing import Dict, Any
 from bs4 import Tag
 from libvoikko import Voikko
+from .voikko import get_voikko
 from ai_tools_for_publishing.punctuation import (
     ALL_PUNCTUATION,
     split_punctuation_from_word,
 )
 
-try:
-    VOIKKO = Voikko("fi")
-except Exception:
-    raise Exception(
-        """Unable to launch Finnish language Voikko
-
-Please make sure that the libvoikko and the
-Finnish language dictionary have been installed:
-
-    sudo apt install libvoikko1 voikko-fi\n"""
-    )
+voikko = None
 
 
 def hyphenate_word(word: str, known_hyphenations: Dict[str, str]) -> str:
     """Hyphenate a single word and return it."""
-    global VOIKKO
+    global voikko
     log = logging.getLogger(__name__)
 
     prefix, word, postfix = split_punctuation_from_word(word)
@@ -31,7 +22,7 @@ def hyphenate_word(word: str, known_hyphenations: Dict[str, str]) -> str:
         log.debug("Known word %s -> %s", word, known_hyphenations[word])
         hyphenated_word = known_hyphenations[word].replace("_", "\N{SOFT HYPHEN}")
     else:
-        hyphenated_word = VOIKKO.hyphenate(word, separator="\N{SOFT HYPHEN}")
+        hyphenated_word = voikko.hyphenate(word, separator="\N{SOFT HYPHEN}")
         if not isinstance(hyphenated_word, str):
             raise TypeError(f"Hyphenating '{word}' returned {hyphenated_word}")
 
@@ -75,10 +66,8 @@ def hyphenate_body(
 ) -> None:
     """Hyphenate the text in-place in the <body> tag."""
 
-    global VOIKKO
-    VOIKKO.setNoUglyHyphenation(True)
-    VOIKKO.setHyphenateUnknownWords(cfg["allow_unknown"])
-    VOIKKO.setMinHyphenatedWordLength(cfg["min_word_length"])
+    global voikko
+    voikko = get_voikko(cfg["allow_unknown"], cfg["min_word_length"])
 
     for element in body.find_all(string=True):
         if element == "\n":

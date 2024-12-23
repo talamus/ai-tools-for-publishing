@@ -1,27 +1,31 @@
 import sys
 import logging
-from typing import Callable, Dict, Any
+import argparse
+from typing import Callable, Dict, Tuple, Any
+from .arguments import parse_arguments
 from .config import set_up_config
 from .logging import set_up_loggers, VERBOSITY
 
 
-def set_up_and_run(
-    program_name: str,
-    program: Callable,
-    default_cfg: Dict[str, Any],
-    args_cfg: Dict[str, Any],
-) -> int:
-    """Set up logging and configuration. Run the program.
+def set_up_and_run_application(
+    APP_NAME: str,
+    APP_DESCRIPTION: str,
+    APP_USAGE: str,
+    APP_CLI_ARGUMENTS: Tuple[Tuple],
+    APP_CFG: Dict[str, Any],
+    main: Callable,
+) -> None:
+    """Parse command line arguments, set up logging and configuration,
+    and run the application.
 
-    :param program_name: Name of the program.
-    :param program: The main function of the program.
-        It is expected to take a configuration dictionary as an argument
-        and throw exceptions if something goes wrong.
+    :param APP_NAME:          The name of the application.
+    :param APP_DESCRIPTION:   A brief description of the application.
+    :param APP_USAGE:         Usage information for the application.
+    :param APP_CLI_ARGUMENTS: List of command-line arguments to parse.
+    :param APP_CFG:           Default configuration for the application.
+    :param main:              The main function of the application
 
-    :param default_cfg: Default configuration for the program.
-    :param args_cfg: Configuration from command line options.
-
-    :return: 0 if everything went well, 1 if there was an error.
+    This function never returns. It exits the program with return code.
     """
 
     # Start a screen logger that can handle error messages
@@ -30,7 +34,12 @@ def set_up_and_run(
 
     try:
         # Here we go!
-        log.info("Starting %s...", program_name)
+        log.info("Starting %s...", APP_NAME)
+
+        # Parse command-line arguments
+        args_cfg = parse_arguments(
+            APP_NAME, APP_DESCRIPTION, APP_USAGE, APP_CLI_ARGUMENTS
+        )
 
         # Make sure that verbosity is within range and convert it into a string
         if "verbosity" in args_cfg:
@@ -44,7 +53,7 @@ def set_up_and_run(
             ]
 
         # Combine defaults and arguments, possibly read a configuration file
-        cfg = set_up_config(default_cfg, args_cfg)
+        cfg = set_up_config(APP_CFG, args_cfg)
 
         # Update logging levels according to the configuration
         set_up_loggers(cfg)
@@ -54,7 +63,7 @@ def set_up_and_run(
         log.debug("Configuration", extra={"cfg": cfg})
 
         # Run the application
-        program(cfg)
+        main(cfg)
 
     except Exception as error:
         log.exception(error.__class__.__name__, extra={"problem": str(error)})
@@ -62,7 +71,7 @@ def set_up_and_run(
         # Raise the exception to the terminal when debugging
         if args_cfg.get("verbosity") == "DEBUG":
             raise
-        return 1
+        sys.exit(1)
 
     log.info("All Ok!")
-    return 0
+    sys.exit(0)
