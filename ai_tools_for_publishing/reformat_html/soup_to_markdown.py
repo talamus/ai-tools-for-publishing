@@ -2,7 +2,7 @@ import logging
 import textwrap
 from typing import Any, Dict
 from bs4 import BeautifulSoup, Tag, NavigableString
-from ai_tools_for_publishing.punctuation import simplify_punctuation
+from ai_tools_for_publishing.utils import simplify_punctuation
 from .default_config import DEFAULT_CONFIG
 
 

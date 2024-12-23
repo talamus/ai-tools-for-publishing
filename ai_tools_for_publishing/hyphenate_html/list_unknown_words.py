@@ -3,11 +3,7 @@ import yaml
 from typing import Dict, Any
 from bs4 import Tag
 from .voikko import get_voikko, get_strict_voikko
-from ai_tools_for_publishing.punctuation import (
-    ALL_PUNCTUATION,
-    split_punctuation_from_word,
-)
-
+from ai_tools_for_publishing.utils import ALL_PUNCTUATION, split_punctuation_from_word
 
 # Dictionary of unknown words and their (guessed) hyphenated forms
 unknown_words: Dict[str, str] = dict()
