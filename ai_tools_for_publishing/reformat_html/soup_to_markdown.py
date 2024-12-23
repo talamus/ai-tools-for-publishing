@@ -32,7 +32,7 @@ ALLOWED_TAGS = {
     "h5": lambda soup: "##### " + convert_tag_to_markdown(soup) + "\n\n",
     "p": lambda soup: convert_tag_to_markdown(soup) + "\n\n",
     "hr": lambda soup: "---\n\n",
-    "br": lambda soup: "",
+    "br": lambda soup: " ",
     "em": lambda soup: "'" + convert_tag_to_markdown(soup) + "'",
     "i": lambda soup: convert_tag_to_markdown(soup),
     "strong": lambda soup: "*" + convert_tag_to_markdown(soup) + "*",

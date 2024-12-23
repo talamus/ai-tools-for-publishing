@@ -52,7 +52,7 @@ def get_output_file_name(
         templating_variables = get_templating_variables(input_file, format, cfg)
         output_file = cfg["output_name"].format(**templating_variables)
     except KeyError as error:
-        raise KeyError(f"Unknown key in output_name '{cfg["output_name"]}': {error}")
+        raise KeyError(f"Unknown key in output_name '{cfg['output_name']}': {error}")
 
     output_path = cfg.get("output_path")
     if output_path:

@@ -37,7 +37,7 @@ APP_CLI_ARGUMENTS = (
 (("-q",      "--quiet",         ),{ "dest": "verbosity",         "action": "store_const", "const": -1, "help": "Do not output anything", }),
 (("-O",      "--output-path",   ),{ "dest": "output_path",       "metavar": "PATH",              "help": "output directory for hyphenated HTML documents", }),
 (("--out",   "--output",        ),{ "dest": "output_path",                                       "help": argparse.SUPPRESS, }),
-(("--output-name",              ),{ "dest": "output_name",       "metavar": "PATTERN",           "help": "name for output files (Default: \"{name}_hyphenated.{ext}\")", }),
+(("--output-name",              ),{ "dest": "output_name",       "metavar": "PATTERN",           "help": f"name for output files (Default: \"{DEFAULT_CONFIG['output_name']}\")", }),
 (("--output-format",            ),{ "dest": "output_format",     "metavar": "FORMAT",            "help": f"format for output files ({ ', '.join(list(FORMATS.keys())) }) (Default: html)", }),
 (("--format", "--fmt"           ),{ "dest": "output_format",                                     "help": argparse.SUPPRESS, }),
 (("-o",      "--overwrite",     ),{ "dest": "overwrite",         "action": "store_true",         "help": "overwrite already existing files", }),
