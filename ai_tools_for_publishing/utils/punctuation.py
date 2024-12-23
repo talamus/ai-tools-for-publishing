@@ -27,7 +27,9 @@ CANONIZED_PUNCTUATION = ( #                 Pretty version                      
 )
 # fmt: on
 
-ALL_PUNCTUATION = "!?:;.,()*+-/[]_" + "".join([p[RAW] for p in CANONIZED_PUNCTUATION])
+ALL_PUNCTUATION = "!?:;.,()*+-/[]_" + "".join(
+    [p[RAW] for p in CANONIZED_PUNCTUATION if p[RAW][0] not in "!?:;.,()*+-/[]_"]
+)
 
 PRETTIFY_PUNCTUATION = dict()
 SIMPLIFY_PUNCTUATION = dict()

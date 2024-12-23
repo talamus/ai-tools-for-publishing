@@ -3,7 +3,7 @@ import logging
 from typing import Dict, Any
 from bs4 import Tag
 from .voikko import get_voikko
-from ai_tools_for_publishing.utils import ALL_PUNCTUATION, strip_punctuation
+from ai_tools_for_publishing.utils import ALL_PUNCTUATION, split_punctuation_from_word
 
 voikko = None
 
@@ -13,7 +13,7 @@ def hyphenate_word(word: str, known_hyphenations: Dict[str, str]) -> str:
     global voikko
     log = logging.getLogger(__name__)
 
-    word = strip_punctuation(word)
+    prefix, word, postfix = split_punctuation_from_word(word)
     if word in known_hyphenations:
         log.debug("Known word %s -> %s", word, known_hyphenations[word])
         hyphenated_word = known_hyphenations[word].replace("_", "\N{SOFT HYPHEN}")
