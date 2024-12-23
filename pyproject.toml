@@ -6,8 +6,7 @@ authors = ["Tero Niemi <tero.niemi@nimbus.fi>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
-html_to_markdown = "ai_tools_for_publishing:html_to_markdown_cli"
-html_to_xhtml = "ai_tools_for_publishing.html_to_xhtml:cli"
+reformat_html = "ai_tools_for_publishing.reformat_html:cli"
 hyphenate_html = "ai_tools_for_publishing.hyphenate_html:cli"
 
 [tool.poetry.dependencies]

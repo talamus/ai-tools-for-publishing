@@ -3,11 +3,8 @@ import argparse
 import platformdirs
 from ai_tools_for_publishing.cli import set_up_and_run_application, VERBOSITY
 from ai_tools_for_publishing.utils import dict_to_yaml_str
-from ai_tools_for_publishing.reformat_html import (
-    DEFAULT_CONFIG as REFORMAT_HTML_DEFAULT_CONFIG,
-    FORMATS,
-)
 from .default_config import DEFAULT_CONFIG
+from .formats import FORMATS
 from .main import main
 
 # fmt: off
@@ -15,7 +12,7 @@ from .main import main
 
 (PARENT_NAME, APP_NAME) = __package__.split(".")
 APP_DESCRIPTION = """
-Hyphenate Finnish HTML documents using BeautifulSoup and Voikko.
+Convert HTML documents to Markdown, XHTML or more strict HTML.
 """
 CLI_CONFIG = {
     "config_file": os.path.join(
@@ -28,7 +25,7 @@ CLI_CONFIG = {
     "log_max_bytes": 1000 * 1024,
     "log_max_files": 10,
 }
-APP_CFG = REFORMAT_HTML_DEFAULT_CONFIG | DEFAULT_CONFIG | CLI_CONFIG
+APP_CFG = DEFAULT_CONFIG | CLI_CONFIG
 APP_USAGE = f"""
 default configuration:
 ---
@@ -38,10 +35,6 @@ APP_CLI_ARGUMENTS = (
 (("input_files",                ),{ "nargs": "+",                "metavar": "input.html",        "help": "HTML documents to be processed", }),
 (("-v",      "--verbosity",     ),{ "dest": "verbosity",         "action": "count",              "help": "set output verbosity (-v = WARNING, -vv = INFO, -vvv = DEBUG)", }),
 (("-q",      "--quiet",         ),{ "dest": "verbosity",         "action": "store_const", "const": -1, "help": "Do not output anything", }),
-(("-a",      "--allow-unknown", ),{ "dest": "allow_unknown",     "action": "store_true",         "help": "hyphenate even unknown words (Use with care!)", }),
-(("-l",      "--list-unknown",  ),{ "dest": "list_unknown",      "action": "store_true",         "help": "list unknown words and their guessed hyphenations (Dry run implied)", }),
-(("-k", "--known-hyphenations", ),{ "dest": "hyphenations_file", "metavar": "HYPHENATIONS.yaml", "help": "read known hyphenations from this file (YAML format)", }),
-(("--known", "--hyphenations",  ),{ "dest": "hyphenations_file",                                 "help": argparse.SUPPRESS, }),
 (("-O",      "--output-path",   ),{ "dest": "output_path",       "metavar": "PATH",              "help": "output directory for hyphenated HTML documents", }),
 (("--out",   "--output",        ),{ "dest": "output_path",                                       "help": argparse.SUPPRESS, }),
 (("--output-name",              ),{ "dest": "output_name",       "metavar": "PATTERN",           "help": "name for output files (Default: \"{name}_hyphenated.{ext}\")", }),
