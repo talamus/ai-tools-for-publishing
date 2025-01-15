@@ -8,22 +8,22 @@ from .soup_to_simplified_html import soup_to_simplified_html
 FORMATS = {
     "html": {
         "description": "Unmodified HTML file",
-        "extension": ".html",
+        "extension": "_reformatted.html",
         "formatter": soup_to_html,
     },
     "simplified_html": {
         "description": "Simplified HTML file",
-        "extension": ".html",
+        "extension": "_simplified.html",
         "formatter": soup_to_simplified_html,
     },
     "xhtml": {
         "description": "XHTML file suitable for EPUB",
-        "extension": ".xhtml",
+        "extension": "_reformatted.xhtml",
         "formatter": soup_to_xhtml,
     },
     "markdown": {
         "description": "Simplified Markdown file",
-        "extension": ".md",
+        "extension": "_reformatted.md",
         "formatter": soup_to_markdown,
     },
 }

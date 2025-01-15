@@ -97,7 +97,9 @@ already_logged_punctuation = dict()
 
 
 def log_unknown_punctuation(word: str) -> None:
-    """Check for unknown punctuation characters and log a warning."""
+    """
+    Check for unknown punctuation characters and log a warning.
+    """
     global ALL_PUNCTUATION
     global already_logged_punctuation
     log = logging.getLogger(__name__)

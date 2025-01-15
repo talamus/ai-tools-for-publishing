@@ -12,13 +12,20 @@ templating_variables: Dict[str, str] = None
 def get_templating_variables(
     input_file: str, format: Dict[str, Any], cfg: Dict[str, Any]
 ) -> Dict[str, str]:
-    """Get the templating variables (creating them if necessary)."""
+    """
+    Get the templating variables (creating them if necessary).
+
+    :param input_file: The path to the input file.
+    :param format: A dictionary containing format information, including the file extension.
+    :param cfg: A dictionary containing configuration values.
+    :return: A dictionary of templating variables.
+    """
     log = logging.getLogger(__name__)
 
     global templating_variables
     if not templating_variables:
         templating_variables = {
-            "ext": format["extension"].lstrip("."),
+            "ext": format["extension"],
             "date": date.today().isoformat(),
             "time": datetime.now().strftime("%H%M%S"),
         }

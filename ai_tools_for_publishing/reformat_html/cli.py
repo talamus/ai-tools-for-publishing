@@ -32,20 +32,20 @@ default configuration:
 {dict_to_yaml_str(APP_CFG)}
 """
 APP_CLI_ARGUMENTS = (
-(("input_files",                ),{ "nargs": "+",                "metavar": "input.html",        "help": "HTML documents to be processed", }),
-(("-v",      "--verbosity",     ),{ "dest": "verbosity",         "action": "count",              "help": "set output verbosity (-v = WARNING, -vv = INFO, -vvv = DEBUG)", }),
-(("-q",      "--quiet",         ),{ "dest": "verbosity",         "action": "store_const", "const": -1, "help": "Do not output anything", }),
-(("-O",      "--output-path",   ),{ "dest": "output_path",       "metavar": "PATH",              "help": "output directory for hyphenated HTML documents", }),
-(("--out",   "--output",        ),{ "dest": "output_path",                                       "help": argparse.SUPPRESS, }),
-(("--output-name",              ),{ "dest": "output_name",       "metavar": "PATTERN",           "help": f"name for output files (Default: \"{DEFAULT_CONFIG['output_name']}\")", }),
-(("--output-format",            ),{ "dest": "output_format",     "metavar": "FORMAT",            "help": f"format for output files ({ ', '.join(list(FORMATS.keys())) }) (Default: html)", }),
-(("--format", "--fmt"           ),{ "dest": "output_format",                                     "help": argparse.SUPPRESS, }),
-(("-o",      "--overwrite",     ),{ "dest": "overwrite",         "action": "store_true",         "help": "overwrite already existing files", }),
-(("--config",                   ),{ "dest": "config_file",       "metavar": "CONFIG.yaml",       "help": "read configuration from this file (YAML format)", }),
-(("--log-level",                ),{ "dest": "log_level",         "metavar": "LEVEL", "choices": VERBOSITY.keys(), "help": f"set logging level ({ ', '.join(list(VERBOSITY.keys())) }) (Default: {APP_CFG['log_level']})", }),
-(("--loglevel",                 ),{ "dest": "log_level",         "choices": VERBOSITY.keys(),    "help": argparse.SUPPRESS, }),
-(("--dry-run",                  ),{ "dest": "dry_run",           "action": "store_true",         "help": "do not do anything", }),
-(("--dryrun",                   ),{ "dest": "dry_run",           "action": "store_true",         "help": argparse.SUPPRESS, }),
+(("input_files",              ),{ "nargs": "+",                "metavar": "input.html",        "help": "HTML documents to be processed", }),
+(("-v",      "--verbosity",   ),{ "dest": "verbosity",         "action": "count",              "help": "set output verbosity (-v = WARNING, -vv = INFO, -vvv = DEBUG)", }),
+(("-q",      "--quiet",       ),{ "dest": "verbosity",         "action": "store_const", "const": -1, "help": "Do not output anything", }),
+(("-O",      "--output-path", ),{ "dest": "output_path",       "metavar": "PATH",              "help": "output directory for hyphenated HTML documents", }),
+(("--out",   "--output",      ),{ "dest": "output_path",                                       "help": argparse.SUPPRESS, }),
+(("--output-name",            ),{ "dest": "output_name",       "metavar": "PATTERN",           "help": f"name for output files (Default: \"{DEFAULT_CONFIG['output_name']}\")", }),
+(("--output-format",          ),{ "dest": "output_format",     "metavar": "FORMAT",            "help": f"format for output files ({ ', '.join(list(FORMATS.keys())) }) (Default: html)", }),
+(("--format", "--fmt"         ),{ "dest": "output_format",                                     "help": argparse.SUPPRESS, }),
+(("-o",      "--overwrite",   ),{ "dest": "overwrite",         "action": "store_true",         "help": "overwrite already existing files", }),
+(("--config",                 ),{ "dest": "config_file",       "metavar": "CONFIG.yaml",       "help": "read configuration from this file (YAML format)", }),
+(("--log-level",              ),{ "dest": "log_level",         "metavar": "LEVEL", "choices": VERBOSITY.keys(), "help": f"set logging level ({ ', '.join(list(VERBOSITY.keys())) }) (Default: {APP_CFG['log_level']})", }),
+(("--loglevel",               ),{ "dest": "log_level",         "choices": VERBOSITY.keys(),    "help": argparse.SUPPRESS, }),
+(("--dry-run",                ),{ "dest": "dry_run",           "action": "store_true",         "help": "do not do anything", }),
+(("--dryrun",                 ),{ "dest": "dry_run",           "action": "store_true",         "help": argparse.SUPPRESS, }),
 )
 
 # -----------------------------------------------------------------------------

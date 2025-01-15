@@ -2,7 +2,7 @@ import os.path
 from typing import Any, Dict
 import logging
 from bs4 import BeautifulSoup
-from ai_tools_for_publishing.utils import read_yaml_file_to_dict
+from .guess_html_file_encoding import guess_html_file_encoding
 from .write_soup_to_file import write_soup_to_file
 
 
@@ -25,12 +25,16 @@ def main(cfg: Dict[str, Any]) -> None:
 
         # Read the HTML file into a BeautifulSoup object
         try:
-            with open(input_file) as file:
+            encoding = guess_html_file_encoding(input_file)
+            log.debug(
+                "Guessed encoding for %s", input_file, extra={"encoding": encoding}
+            )
+            with open(input_file, encoding=encoding) as file:
                 soup = BeautifulSoup(file.read(), "html.parser")
         except Exception as error:
             log.error(
                 "Error while reading HTML file",
-                extra={"file": input_file, "error": str(error)},
+                extra={"file": input_file, "error": str(error), "_type": type(error)},
             )
             continue
 

@@ -24,7 +24,7 @@ flowchart
         *Command line argument definitions*
     )-->
     5(
-        ai_tools_for_publishing.cli:set_up_and_run
+        ai_tools_for_publishing.cli:set_up_and_run_application
         *Configuration and logging*
     )-->
     6(
@@ -32,7 +32,3 @@ flowchart
         *Do something*
     )
 ```
-
-## Data Structues
-
-Data is transferred between modules in either BeautifulSoup's `Soup` type, or as a single string.

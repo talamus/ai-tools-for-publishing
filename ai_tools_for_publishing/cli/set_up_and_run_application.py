@@ -1,6 +1,5 @@
 import sys
 import logging
-import argparse
 from typing import Callable, Dict, Tuple, Any
 from .arguments import parse_arguments
 from .config import set_up_config
