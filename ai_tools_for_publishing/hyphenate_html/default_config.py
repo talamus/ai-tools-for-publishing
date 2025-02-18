@@ -3,6 +3,6 @@ DEFAULT_CONFIG = {
     "allow_unknown": False,
     "list_unknown": False,
     "hyphenations_file": None,
-    "output_name": "{name}_hyphenated.{ext}",
+    "output_name": "{name}_hyphenated{ext}",
     "output_format": "html",
 }

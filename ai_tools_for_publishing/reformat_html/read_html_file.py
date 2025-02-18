@@ -1,5 +1,9 @@
-def guess_html_file_encoding(input_file: str) -> str:
-    """Try to guess HTML/XML file encoding."""
+import logging
+
+def read_html_file(input_file: str) -> str:
+    """Read HTML file and try to guess encoding."""
+
+    log = logging.getLogger(__name__)
 
     # Gobble up the whole file in binary format
     with open(input_file, "rb") as file:
@@ -46,4 +50,6 @@ def guess_html_file_encoding(input_file: str) -> str:
             end = possible_end
 
     # Good luck...
-    return binary[start:end].decode("ascii").strip().lower()
+    encoding = binary[start:end].decode("ascii").strip().lower()
+    log.debug("Guessed encoding for %s", input_file, extra={"encoding": encoding})
+    return binary.decode(encoding)

@@ -7,8 +7,8 @@ from .soup_to_simplified_html import soup_to_simplified_html
 
 FORMATS = {
     "html": {
-        "description": "Unmodified HTML file",
-        "extension": "_reformatted.html",
+        "description": "Parsed HTML file",
+        "extension": "_parsed.html",
         "formatter": soup_to_html,
     },
     "simplified_html": {
