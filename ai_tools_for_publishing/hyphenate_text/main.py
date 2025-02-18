@@ -2,14 +2,18 @@ import os.path
 from typing import Any, Dict
 import logging
 from bs4 import BeautifulSoup
-from ai_tools_for_publishing.reformat_text import read_file_to_soup, get_body_from_soup, write_soup_to_file
+from ai_tools_for_publishing.reformat_text import (
+    read_file_to_soup,
+    get_body_from_soup,
+    write_soup_to_file,
+)
 from ai_tools_for_publishing.utils import read_yaml_file_to_dict
 from .list_unknown_words import collect_unknown_words, print_unknown_words
 from .hyphenate_body import hyphenate_body
 
 
 def main(cfg: Dict[str, Any]) -> None:
-    """Read multiple HTML documents and hyphenate them."""
+    """Read multiple HTML or Markdown documents and hyphenate them."""
 
     log = logging.getLogger(__name__)
 
@@ -37,7 +41,8 @@ def main(cfg: Dict[str, Any]) -> None:
 
         # Read the file into a BeautifulSoup object and find the body
         try:
-            body = get_body_from_soup(read_file_to_soup(input_file))
+            soup = read_file_to_soup(input_file)
+            body = get_body_from_soup(soup)
         except Exception as error:
             log.error(
                 "Error while reading %s",

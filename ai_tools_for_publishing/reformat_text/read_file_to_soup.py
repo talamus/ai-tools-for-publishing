@@ -29,4 +29,3 @@ def read_file_to_soup(input_file: str) -> BeautifulSoup:
     # Try to parse to soup
     log.info("Parsing to beautiful soup")
     return BeautifulSoup(html, "html.parser")
-

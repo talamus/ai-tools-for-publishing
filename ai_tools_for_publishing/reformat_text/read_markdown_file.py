@@ -3,7 +3,7 @@ from markdown_it import MarkdownIt
 from markdown_it.rules_block.state_block import StateBlock
 
 
-def beat_plugin(md: MarkdownIt):
+def custom_plugin(md: MarkdownIt) -> bool:
     """Create a plugin that detects "beats" from Markdown."""
 
     log = logging.getLogger("beat_plugin")
@@ -58,6 +58,6 @@ def read_markdown_file(input_file: str) -> str:
 
     # Return a HTML representation of it
     md = MarkdownIt("commonmark", {"xhtmlOut": False, "typographer": False}).use(
-        beat_plugin
+        custom_plugin
     )
     return md.render(raw)

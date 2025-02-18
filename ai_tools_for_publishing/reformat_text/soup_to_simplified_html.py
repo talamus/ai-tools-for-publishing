@@ -67,7 +67,9 @@ def soup_to_simplified_html(
     author_tag = soup.find("meta", attrs={"name": "author"})
     copyright_tag = soup.find("meta", attrs={"name": "copyright"})
 
-    language = html_tag.get("lang") if html_tag else body_tag.get("lang") if body_tag else "en"
+    language = (
+        html_tag.get("lang") if html_tag else body_tag.get("lang") if body_tag else "en"
+    )
     language = language.strip().lower()
 
     vars_from_html = {

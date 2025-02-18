@@ -8,7 +8,7 @@ from .write_soup_to_file import write_soup_to_file
 
 
 def main(cfg: Dict[str, Any]) -> None:
-    """Reads HTML files and writes them back in reformatted form."""
+    """Reads HTML or Markdown files and writes them back in reformatted form."""
 
     log = logging.getLogger(__name__)
 

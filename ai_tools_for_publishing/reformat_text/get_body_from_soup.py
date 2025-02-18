@@ -1,6 +1,7 @@
 import logging
 from bs4 import BeautifulSoup, Tag
 
+
 def get_body_from_soup(soup: BeautifulSoup) -> Tag:
     """
     Return the <body> tag from a BeautifulSoup object,

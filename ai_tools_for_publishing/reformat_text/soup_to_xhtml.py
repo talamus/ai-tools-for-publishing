@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from bs4.formatter import Formatter, EntitySubstitution
 from .get_body_from_soup import get_body_from_soup
 
+
 def soup_to_xhtml(
     soup: BeautifulSoup, templating_variables: Dict[str, str], cfg: Dict[str, Any]
 ) -> str:
@@ -22,7 +23,9 @@ def soup_to_xhtml(
     author_tag = soup.find("meta", attrs={"name": "author"})
     copyright_tag = soup.find("meta", attrs={"name": "copyright"})
 
-    language = html_tag.get("lang") if html_tag else body_tag.get("lang") if body_tag else "en"
+    language = (
+        html_tag.get("lang") if html_tag else body_tag.get("lang") if body_tag else "en"
+    )
     language = language.strip().lower()
 
     vars_from_html = {

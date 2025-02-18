@@ -6,6 +6,7 @@ from ai_tools_for_publishing.utils import simplify_punctuation
 from .default_config import DEFAULT_CONFIG
 from .get_body_from_soup import get_body_from_soup
 
+
 def convert_tag_to_markdown(tags: Tag) -> str:
     """
     Take a BeautifulSoup tag and return a simplified Markdown string.
@@ -61,7 +62,7 @@ ALLOWED_TAGS = {
     "strong": lambda soup: "*" + convert_tag_to_markdown(soup) + "*",
     "i": lambda soup: convert_tag_to_markdown(soup),  # These two are designed to
     "b": lambda soup: convert_tag_to_markdown(soup),  # be ignored
-    "blockquote": lambda soup: textwrap.indent(convert_tag_to_markdown(soup), "    "),
+    "blockquote": lambda soup: textwrap.indent(convert_tag_to_markdown(soup), "> "),
 }
 
 
