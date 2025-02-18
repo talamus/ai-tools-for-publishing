@@ -1,11 +1,13 @@
 import logging
 
+
 def read_html_file(input_file: str) -> str:
     """Read HTML file and try to guess encoding."""
 
     log = logging.getLogger(__name__)
 
     # Gobble up the whole file in binary format
+    log.info("Reading HTML file %s...", input_file)
     with open(input_file, "rb") as file:
         binary = file.read()
 

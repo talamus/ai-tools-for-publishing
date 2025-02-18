@@ -3,7 +3,7 @@ import argparse
 import platformdirs
 from ai_tools_for_publishing.cli import set_up_and_run_application, VERBOSITY
 from ai_tools_for_publishing.utils import dict_to_yaml_str
-from ai_tools_for_publishing.reformat_html import (
+from ai_tools_for_publishing.reformat_text import (
     DEFAULT_CONFIG as REFORMAT_HTML_DEFAULT_CONFIG,
     FORMATS,
 )

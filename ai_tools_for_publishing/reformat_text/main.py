@@ -2,6 +2,7 @@ import os.path
 from typing import Any, Dict
 import logging
 from bs4 import BeautifulSoup
+from .read_file_to_soup import read_file_to_soup
 from .read_html_file import read_html_file
 from .write_soup_to_file import write_soup_to_file
 
@@ -23,13 +24,12 @@ def main(cfg: Dict[str, Any]) -> None:
     # The main loop
     for input_file in input_files:
 
-        # Read the HTML file into a BeautifulSoup object
+        # Read the file into a BeautifulSoup object
         try:
-            html = read_html_file(input_file)
-            soup = BeautifulSoup(html, "html.parser")
+            soup = read_file_to_soup(input_file)
         except Exception as error:
             log.error(
-                "Error while reading HTML file",
+                "Error while reading file",
                 extra={"file": input_file, "error": str(error)},
             )
             continue

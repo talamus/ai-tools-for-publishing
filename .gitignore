@@ -5,6 +5,7 @@ tmp.*
 *.tmp
 *.temp
 tmp/
+tmp/*
 
 # Ignore original texts and translations
 originals/*
