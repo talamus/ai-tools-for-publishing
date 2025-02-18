@@ -1,6 +1,6 @@
 import os.path
 import logging
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from .read_html_file import read_html_file
 from .read_markdown_file import read_markdown_file
 
@@ -10,7 +10,7 @@ class UnsupportedFileExtension(Exception):
         super().__init__("Unsupported file extension", *args)
 
 
-def read_file_to_soup(input_file: str) -> str:
+def read_file_to_soup(input_file: str) -> BeautifulSoup:
 
     log = logging.getLogger(__name__)
 
@@ -29,3 +29,4 @@ def read_file_to_soup(input_file: str) -> str:
     # Try to parse to soup
     log.info("Parsing to beautiful soup")
     return BeautifulSoup(html, "html.parser")
+

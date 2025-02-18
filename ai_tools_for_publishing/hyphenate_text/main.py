@@ -2,7 +2,7 @@ import os.path
 from typing import Any, Dict
 import logging
 from bs4 import BeautifulSoup
-from ai_tools_for_publishing.reformat_text import read_file_to_soup, write_soup_to_file
+from ai_tools_for_publishing.reformat_text import read_file_to_soup, get_body_from_soup, write_soup_to_file
 from ai_tools_for_publishing.utils import read_yaml_file_to_dict
 from .list_unknown_words import collect_unknown_words, print_unknown_words
 from .hyphenate_body import hyphenate_body
@@ -37,11 +37,7 @@ def main(cfg: Dict[str, Any]) -> None:
 
         # Read the file into a BeautifulSoup object and find the body
         try:
-            soup = read_file_to_soup(input_file)
-            body = soup.find("body")
-            if not body:
-                body = soup
-                log.info("<body> not found, using soup")
+            body = get_body_from_soup(read_file_to_soup(input_file))
         except Exception as error:
             log.error(
                 "Error while reading %s",

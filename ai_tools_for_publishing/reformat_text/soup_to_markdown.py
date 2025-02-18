@@ -4,7 +4,7 @@ from typing import Any, Dict
 from bs4 import BeautifulSoup, Tag, NavigableString
 from ai_tools_for_publishing.utils import simplify_punctuation
 from .default_config import DEFAULT_CONFIG
-
+from .get_body_from_soup import get_body_from_soup
 
 def convert_tag_to_markdown(tags: Tag) -> str:
     """
@@ -69,11 +69,7 @@ def soup_to_markdown(
     soup: BeautifulSoup, templating_variables: Dict[str, str], cfg: Dict[str, Any]
 ) -> str:
     """Convert a BeautifulSoup object to a simplified Markdown string."""
-
-    body = soup.find("body")
-    if not body:
-        raise SyntaxError("No <body> tag found")
-
+    body = get_body_from_soup(soup)
     content = convert_tag_to_markdown(body)
     content = simplify_punctuation(content)
     return content
