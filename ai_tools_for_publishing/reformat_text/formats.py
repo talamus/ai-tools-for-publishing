@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from .soup_to_html import soup_to_html
 from .soup_to_xhtml import soup_to_xhtml
-from .soup_to_markdown import soup_to_markdown
+from .soup_to_markdown import soup_to_markdown, each_sentence_on_new_line
 from .soup_to_simplified_html import soup_to_simplified_html
 
 
@@ -21,10 +21,17 @@ FORMATS = {
         "extension": "_reformatted.xhtml",
         "formatter": soup_to_xhtml,
     },
-    "markdown": {
+    "md": {
         "description": "Simplified Markdown file",
         "extension": "_reformatted.md",
         "formatter": soup_to_markdown,
+    },
+    "paragraph_md": {
+        "description": "Paragraph separated Markdown file",
+        "extension": ".md",
+        "formatter": lambda soup, templating_variables, cfg: each_sentence_on_new_line(
+            soup_to_markdown(soup, templating_variables, cfg)
+        ),
     },
 }
 

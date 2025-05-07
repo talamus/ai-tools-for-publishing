@@ -2,6 +2,7 @@ import logging
 from typing import Any, Dict
 from bs4 import BeautifulSoup
 from bs4.formatter import Formatter, EntitySubstitution
+from .get_body_from_soup import get_body_from_soup
 
 
 def soup_to_xhtml(
@@ -10,23 +11,26 @@ def soup_to_xhtml(
     """Convert a BeautifulSoup object to an XHTML string."""
 
     log = logging.getLogger(__name__)
-
-    body = soup.find("body")
-    if not body:
-        raise SyntaxError("No <body> tag found")
+    body = get_body_from_soup(soup)
 
     xhtml_formatter = Formatter(entity_substitution=EntitySubstitution.substitute_xml)
-
     content = body.decode(formatter=xhtml_formatter)
+    log.debug("Content", extra={"content": content})
 
+    html_tag = soup.find("html")
+    body_tag = soup.find("body")
+    title_tag = soup.find("title")
     author_tag = soup.find("meta", attrs={"name": "author"})
     copyright_tag = soup.find("meta", attrs={"name": "copyright"})
+
+    language = (
+        html_tag.get("lang") if html_tag else body_tag.get("lang") if body_tag else "en"
+    )
+    language = language.strip().lower()
+
     vars_from_html = {
-        "language": soup.find("html")
-        .get("lang", body.get("lang", "en"))
-        .strip()
-        .lower(),
-        "title": soup.find("title").get_text().strip() if soup.find("title") else "",
+        "language": language,
+        "title": title_tag.get_text().strip() if title_tag else "",
         "author": author_tag.get("content", "").strip() if author_tag else "",
         "copyright": copyright_tag.get("content").strip() if copyright_tag else "",
         "content": content,

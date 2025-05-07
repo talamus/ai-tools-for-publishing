@@ -32,7 +32,7 @@ default configuration:
 {dict_to_yaml_str(APP_CFG)}
 """
 APP_CLI_ARGUMENTS = (
-(("input_files",              ),{ "nargs": "+",                "metavar": "input.html",        "help": "HTML documents to be processed", }),
+(("input_files",              ),{ "nargs": "+",                "metavar": "input.[html|md]",   "help": "HTML or Markdown documents to be processed", }),
 (("-v",      "--verbosity",   ),{ "dest": "verbosity",         "action": "count",              "help": "set output verbosity (-v = WARNING, -vv = INFO, -vvv = DEBUG)", }),
 (("-q",      "--quiet",       ),{ "dest": "verbosity",         "action": "store_const", "const": -1, "help": "Do not output anything", }),
 (("-O",      "--output-path", ),{ "dest": "output_path",       "metavar": "PATH",              "help": "output directory for hyphenated HTML documents", }),

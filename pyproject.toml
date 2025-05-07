@@ -6,8 +6,8 @@ authors = ["Tero Niemi <tero.niemi@nimbus.fi>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
-reformat_html = "ai_tools_for_publishing.reformat_html:cli"
-hyphenate_html = "ai_tools_for_publishing.hyphenate_html:cli"
+reformat_text = "ai_tools_for_publishing.reformat_text:cli"
+hyphenate_text = "ai_tools_for_publishing.hyphenate_text:cli"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -17,6 +17,7 @@ colorama = "^0.4.6"
 python-json-logger = "^3.2.0"
 bs4 = "^0.0.2"
 libvoikko = "^4.3"
+markdown-it-py = "^3.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
